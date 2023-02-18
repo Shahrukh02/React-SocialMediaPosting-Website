@@ -1,10 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Signup from "./components/Forms/Signup-Form/Signup";
 
 function App() {
   return (
-    <h1>Working Start</h1>
-    
+    <>
+     <Signup />
+    </>
   );
 }
 
