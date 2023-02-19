@@ -1,48 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Signup.css";
-import {app} from '../../../firebase-config'
-import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
+import { app } from "../../../firebase-config";
+import {NavLink, useNavigate } from 'react-router-dom'
+// import Login from "../Login-Form/Login";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 const Signup = () => {
   const [formData, setFromData] = useState({
-    username : '',
-    email: '',
-    password : ''
+    username: "",
+    email: "",
+    password: "",
   });
+
+  let navigate = useNavigate()
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log(uid);
+        navigate("/page/home");
+        // ...
+      } else {
+        console.log("none");
+      }
+    });
+  },[])
 
   const getValue = (event) => {
-    let name = event.target.name
-    let value = event.target.value
+    let name = event.target.name;
+    let value = event.target.value;
 
-    setFromData((prev)=>{
-      return {...prev , [name] : value}
-    })
-  }
+    setFromData((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
   const auth = getAuth(app);
 
-  const submission = (e) =>  {
-    e.preventDefault()
+  const submission = (e) => {
+    e.preventDefault();
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
-  .then((userCredential) => {
-    // Signed in 
-    console.log(userCredential.user);
-    setFromData({
-      username : '',
-      email: '',
-      password : ''
-    })
-    // ...
-  })
-  .catch((error) => {
-    console.log(error);
-    // ..
-  });
-  }
-
-  
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        setFromData({ username: "", email: "", password: "" });
+        
+        // ...
+      })
+      .catch((error) => {
+        console.log(error);
+        // ..
+        alert(error)
+      });
+  };
 
   return (
     <>
+      <div className="main">
       <div className="signup-form">
         <div className="container">
           <div className="header">
@@ -82,9 +96,10 @@ const Signup = () => {
             <input className="signup-btn" type="submit" />
           </form>
           <p>
-            Already have an account <a href=".">sign in</a>
+            Already have an account <NavLink to={'/auth/login'}>sign in</NavLink>
           </p>
         </div>
+      </div>
       </div>
     </>
   );
