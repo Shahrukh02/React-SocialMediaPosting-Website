@@ -43,7 +43,7 @@ const Login = () => {
           const user = userCredential.user;
           console.log(user.uid);
           setFromData({ email: "", password: "" });
-          navigate('/page/home')
+          navigate('/')
         // ...
       })
       .catch((error) => {
