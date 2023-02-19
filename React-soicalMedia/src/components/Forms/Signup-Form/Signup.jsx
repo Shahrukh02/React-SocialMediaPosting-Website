@@ -18,7 +18,7 @@ const Signup = () => {
       if (user) {
         const uid = user.uid;
         console.log(uid);
-        navigate("/page/home");
+        navigate("/");
         // ...
       } else {
         console.log("none");
