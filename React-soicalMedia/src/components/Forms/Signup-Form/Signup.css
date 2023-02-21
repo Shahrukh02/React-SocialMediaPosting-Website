@@ -85,9 +85,10 @@ p {
   transition: all 0.3s ease;
 }
 
-
-
 a {
   color: #6366f1;
   text-decoration: none;
+}
+.loader{
+  margin-top: 20px;
 }

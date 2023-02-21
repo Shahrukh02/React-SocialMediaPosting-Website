@@ -1,0 +1,25 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+.main_div{
+    margin-top: 90px;
+    display: flex;
+    justify-content: space-between;
+}
+.user_profie_photo{
+  text-align: center;
+  margin-top: 100px;
+}
+.user_profile_box{
+    position: fixed;
+    top: 90px;
+    width: 45vh;
+    border: solid 1px;
+    height: 80vh;
+}
+.all_users_post{
+    position: absolute;
+    right: 0px;
+
+ }

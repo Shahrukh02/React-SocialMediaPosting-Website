@@ -17,7 +17,7 @@ const Navbar = () => {
     <>
      <div className='nav'>
         <div className="logo">
-            <h1>Navbar</h1>
+            <h1>Logo</h1>
         </div>
         <div className="tabs">
             <ul>

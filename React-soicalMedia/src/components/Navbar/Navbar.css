@@ -9,6 +9,10 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    box-shadow: 2px 4px 8px #6b728040;
+    position: fixed;
+    z-index: 1;
+    top: 0px;
 }
 .logo{
     color: #6366f1;
@@ -37,8 +41,4 @@ body{
   }
   .tabs{
     width: 25%;
-    /* background-color: aqua; */
-  }
-  li{
-    /* margin-right: 90px; */
   }
