@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./Signup.css";
 import { app } from "../../../firebase-config";
 import { NavLink, useNavigate } from "react-router-dom";
-// import Login from "../Login-Form/Login";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 const Signup = () => {
   const [formData, setFromData] = useState({
@@ -16,8 +16,9 @@ const Signup = () => {
     email: "",
     password: "",
   });
-  const [loading , setLoading] = useState(false)
 
+  const [loading, setLoading] = useState(false);
+ 
   let navigate = useNavigate();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -36,21 +37,34 @@ const Signup = () => {
     let name = event.target.name;
     let value = event.target.value;
 
+    
     setFromData((prev) => {
       return { ...prev, [name]: value };
     });
   };
+
   const auth = getAuth(app);
+  const db = getFirestore(app);
 
   const submission = (e) => {
-    setLoading(true)
+    setLoading(true);
     e.preventDefault();
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
-        setLoading(false)
+        try {
+          const docRef = await addDoc(collection(db, "users"), {
+            userName: formData.username,
+            email: formData.email,
+            userUid : user.uid,
+          });
+          console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
+        console.log(user.uid);
+        setLoading(false);
         setFromData({ username: "", email: "", password: "" });
 
         // ...
@@ -58,7 +72,7 @@ const Signup = () => {
       .catch((error) => {
         console.log(error);
         alert(error);
-        setLoading(false)
+        setLoading(false);
         // ..
       });
   };
@@ -108,15 +122,15 @@ const Signup = () => {
               Already have an account{" "}
               <NavLink to={"/auth/login"}>sign in</NavLink>
             </p>
-             <div className="loader">
-             <ScaleLoader
-                color={'#6366f1'}
+            <div className="loader">
+              <ScaleLoader
+                color={"#6366f1"}
                 loading={loading}
                 size={50}
                 aria-label="Loading Spinner"
                 data-testid="loader"
               />
-             </div>
+            </div>
           </div>
         </div>
       </div>

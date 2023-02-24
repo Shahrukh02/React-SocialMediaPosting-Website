@@ -6,15 +6,16 @@ import Navbar from "../Navbar/Navbar";
 import Profile from "../Profile-Pages/Profile";
 
 const Home = () => {
-  const [userEmail, setUserEmail] = useState('')
+  const [userUid, setUserUid] = useState("");
 
   const auth = getAuth(app);
   let navigate = useNavigate();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const uid = user;
-        setUserEmail(uid.email);
+        var uid = user.uid;
+        setUserUid(uid)
+
         // ...
       } else {
         console.log("none");
@@ -25,7 +26,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <Profile email={userEmail} />
+      <Profile userUid={userUid} />
     </>
   );
 };

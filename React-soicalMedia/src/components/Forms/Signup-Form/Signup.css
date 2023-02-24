@@ -45,7 +45,7 @@ p {
   margin-bottom: 24px;
 }
 
-.input input {
+.input input , .ant-picker-input{
   width: 100%;
   border: none;
   padding: 8px 40px;
@@ -54,6 +54,7 @@ p {
   color: #1f2937;
   font-size: 16px;
 }
+
 
 .input input::placeholder {
   color: #6b7280;
@@ -92,3 +93,4 @@ a {
 .loader{
   margin-top: 20px;
 }
+

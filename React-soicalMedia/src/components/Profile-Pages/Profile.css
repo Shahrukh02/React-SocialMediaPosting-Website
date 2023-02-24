@@ -1,25 +1,38 @@
-body{
-    margin: 0px;
-    padding: 0px;
+body {
+  margin: 0px;
+  padding: 0px;
 }
-.main_div{
-    margin-top: 90px;
-    display: flex;
-    justify-content: space-between;
+.main_div {
+  margin-top: 90px;
+  display: flex;
+  justify-content: flex-end;
 }
-.user_profie_photo{
+.user_profie_photo {
   text-align: center;
   margin-top: 100px;
 }
-.user_profile_box{
-    position: fixed;
-    top: 90px;
-    width: 45vh;
-    border: solid 1px;
-    height: 80vh;
+.user_profile_box {
+  box-shadow: -2px 2px 8px 5px #6b728040;
+  background-color: #ffffff;
+  position: fixed;
+  top: 90px;
+  left: 30px;
+  width: 40%;
+  height: 600px;
+  border-radius: 10px;
 }
-.all_users_post{
-    position: absolute;
-    right: 0px;
-
- }
+.all_users_post {
+  padding: 5px;
+  width: 100%;
+}
+.user_name{
+  margin-top: 20px;
+  height: 80px;
+}
+.user_info{
+  color: #6b7280;
+}
+.create_post{
+  width: 50%;
+  margin-right: 30px;
+}
