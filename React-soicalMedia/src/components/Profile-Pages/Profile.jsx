@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
-import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Space } from "antd";
+
 import {
   getFirestore,
   collection,
@@ -9,11 +8,12 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar, Space } from "antd";
 import { app } from "../../firebase-config";
 import Posts from "./Posts";
 import PostBox from "../PostBox/PostBox";
 import Loader from "../Loader-full-screen/Loader";
-
 
 const Profile = ({ userUid }) => {
   const [userData, setUserData] = useState({});
@@ -26,22 +26,28 @@ const Profile = ({ userUid }) => {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       setUserData(doc.data());
-      setLoaderComponent(false)
+      setLoaderComponent(false);
     });
   };
+
+ 
+
 
   useEffect(() => {
     getDocumnet();
   }, [userUid]);
 
-  return (
-    loaderComponent !== false ? <Loader /> : 
+  return loaderComponent !== false ? (
+    <Loader />
+  ) : (
     <div className="main_div">
       <div className="user_profile_box">
         <div className="user_profie_photo">
-          <Space wrap size={26}>
-            <Avatar size={164} icon={<UserOutlined />} />
-          </Space>
+          <div className="avatar">
+            <Space wrap size={26}>
+              <Avatar size={164} icon={<UserOutlined />} />
+            </Space>
+          </div>
           <div className="user_name">
             <h2>
               Name: <span className="user_info">{userData.userName}</span>
@@ -51,11 +57,12 @@ const Profile = ({ userUid }) => {
             </h3>
           </div>
         </div>
+     
       </div>
       <div className="create_post">
         <PostBox userName={userData.userName} userId={userUid} />
         <div className="all_users_post">
-          <Posts  userId={userUid} />
+          <Posts userId={userUid} />
         </div>
       </div>
     </div>

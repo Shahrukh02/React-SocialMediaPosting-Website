@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Signup.css";
 import { app } from "../../../firebase-config";
 import { NavLink, useNavigate } from "react-router-dom";
-import ScaleLoader from "react-spinners/ScaleLoader";
+import { Bars } from "react-loader-spinner";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -18,7 +18,7 @@ const Signup = () => {
   });
 
   const [loading, setLoading] = useState(false);
- 
+
   let navigate = useNavigate();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -37,7 +37,6 @@ const Signup = () => {
     let name = event.target.name;
     let value = event.target.value;
 
-    
     setFromData((prev) => {
       return { ...prev, [name]: value };
     });
@@ -57,7 +56,7 @@ const Signup = () => {
           const docRef = await addDoc(collection(db, "users"), {
             userName: formData.username,
             email: formData.email,
-            userUid : user.uid,
+            userUid: user.uid,
           });
           console.log("Document written with ID: ", docRef.id);
         } catch (e) {
@@ -123,12 +122,13 @@ const Signup = () => {
               <NavLink to={"/auth/login"}>sign in</NavLink>
             </p>
             <div className="loader">
-              <ScaleLoader
-                color={"#6366f1"}
-                loading={loading}
-                size={50}
-                aria-label="Loading Spinner"
-                data-testid="loader"
+              <Bars
+                height="50"
+                width="50"
+                color="#6366f1"
+                ariaLabel="bars-loading"
+                wrapperClass=""
+                visible={loading}
               />
             </div>
           </div>

@@ -1,0 +1,11 @@
+.all_users_posts_main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.all_users_posts{
+    width: 55%;
+}
+.all_posts_main_div {
+  margin-top: 90px;
+}

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { app } from "../../../firebase-config";
 import {NavLink , useNavigate} from 'react-router-dom'
-// import Home from "../../Home/Home";
-import ScaleLoader from "react-spinners/ScaleLoader";
+import { Bars } from "react-loader-spinner";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 const Login = () => {
@@ -95,12 +94,13 @@ const Login = () => {
            You dont have an account<NavLink to={'/auth/signup'}> sign up</NavLink>
           </p>
           <div className="loader">
-              <ScaleLoader
-                color={"#6366f1"}
-                loading={loading}
-                size={50}
-                aria-label="Loading Spinner"
-                data-testid="loader"
+          <Bars
+                height="50"
+                width="50"
+                color="#6366f1"
+                ariaLabel="bars-loading"
+                wrapperClass=""
+                visible={loading}
               />
             </div>
         </div>

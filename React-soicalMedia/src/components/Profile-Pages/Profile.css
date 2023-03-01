@@ -5,7 +5,18 @@ body {
 .main_div {
   margin-top: 90px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: end;
+}
+.all_users_post {
+  padding: 5px;
+  width: 100%;
+}
+.create_post {
+  width: 50%;
+  margin-right: 30px;
+}
+.hide_profile {
+  display: none;
 }
 .user_profie_photo {
   text-align: center;
@@ -21,18 +32,10 @@ body {
   height: 600px;
   border-radius: 10px;
 }
-.all_users_post {
-  padding: 5px;
-  width: 100%;
-}
-.user_name{
+.user_name {
   margin-top: 20px;
   height: 80px;
 }
-.user_info{
+.user_info {
   color: #6b7280;
-}
-.create_post{
-  width: 50%;
-  margin-right: 30px;
 }

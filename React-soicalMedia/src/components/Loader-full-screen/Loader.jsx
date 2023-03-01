@@ -1,18 +1,20 @@
 import React from "react";
-import HashLoader from "react-spinners/HashLoader";
-import './loader.css'
+import { Bars } from "react-loader-spinner";
+import "./loader.css";
 
 const Loader = () => {
   return (
     <div className="loader_div">
-      <HashLoader
-        color={"#6366f1"}
-        loading={true}
-        size={60}
-        aria-label="Loading Spinner"
-        data-testid="loader"
+      <Bars
+        height="80"
+        width="80"
+        color="#6366f1"
+        ariaLabel="bars-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
       />
-     </div>
+    </div>
   );
 };
 
