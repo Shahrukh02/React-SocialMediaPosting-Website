@@ -19,7 +19,7 @@ const Navbar = () => {
     <>
       <div className="nav">
         <div className="logo">
-          <h1>Logo</h1>
+          <h1>Post App</h1>
         </div>
         <div className="tabs">
           <ul>

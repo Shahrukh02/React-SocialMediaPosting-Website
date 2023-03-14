@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
-
 import {
   getFirestore,
   collection,
   query,
   where,
   getDocs,
+  // addDoc
 } from "firebase/firestore";
-import { UserOutlined } from "@ant-design/icons";
+// import {
+//   getStorage,
+//   ref,
+//   uploadBytes,
+//   getDownloadURL,
+//   listAll,
+// } from "firebase/storage";
 import { Avatar, Space } from "antd";
+// import IconButton from "@mui/material/IconButton";
+// import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { app } from "../../firebase-config";
 import Posts from "./Posts";
 import PostBox from "../PostBox/PostBox";
@@ -20,6 +28,7 @@ const Profile = ({ userUid }) => {
   const [loaderComponent, setLoaderComponent] = useState(true);
 
   const db = getFirestore(app);
+  // const storage = getStorage(app);
 
   const getDocumnet = async () => {
     const q = query(collection(db, "users"), where("userUid", "==", userUid));
@@ -30,12 +39,32 @@ const Profile = ({ userUid }) => {
     });
   };
 
- 
+  // const uploadImg = () => {
+  //   const imageRef = ref(storage, `userProfile/${userUid} `);
+  //   uploadBytes(imageRef, imageUpload).then((snapshot) => {
+  //     getDownloadURL(snapshot.ref).then( async (url)=>{
+  //       try {
+  //         const docRef = await addDoc(collection(db, `users`), {
+  //           profilePhoto: url
+  //         });
+  //         console.log("Document written with ID: ", docRef.id);
+  //       } catch (e) {
+  //         console.error("Error adding document: ", e);
+  //       }
+  //     })
+  //   });
+  // };
 
+  
 
   useEffect(() => {
     getDocumnet();
   }, [userUid]);
+
+
+
+
+
 
   return loaderComponent !== false ? (
     <Loader />
@@ -44,8 +73,23 @@ const Profile = ({ userUid }) => {
       <div className="user_profile_box">
         <div className="user_profie_photo">
           <div className="avatar">
+            <div className="upload_btn">
+              {/* <IconButton
+                color="primary"
+                aria-label="upload picture"
+                component="label"
+              >
+                <input
+                  hidden
+                  accept="image/*"
+                  type="file"
+                  onChange={(event) => setImageUpload(event.target.files[0])}
+                />
+                <PhotoCamera />
+              </IconButton> */}
+            </div>
             <Space wrap size={26}>
-              <Avatar size={164} icon={<UserOutlined />} />
+              <Avatar size={164} icon={userData.userName.split("")[0]} />
             </Space>
           </div>
           <div className="user_name">
@@ -57,7 +101,7 @@ const Profile = ({ userUid }) => {
             </h3>
           </div>
         </div>
-     
+        {/* <button onClick={uploadImg}>upload</button> */}
       </div>
       <div className="create_post">
         <PostBox userName={userData.userName} userId={userUid} />

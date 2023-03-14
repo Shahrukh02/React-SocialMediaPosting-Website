@@ -9,5 +9,6 @@
   outline-color: #a5b4fc;
 }
 .active{
-    text-decoration: underline;
+  /* background-color: #cbcdff; */
+  border-bottom: solid 3px;
 }

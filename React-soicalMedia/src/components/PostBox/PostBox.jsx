@@ -35,12 +35,7 @@ const PostBox = ({ userName, userId }) => {
     }
     setTextValue("");
   };
-
-  const override = {
-    display: "block",
-    margin: "0 auto",
-    borderColor: "red",
-  };
+  
   return (
     <>
       <div className="post_box_div">

@@ -6,13 +6,14 @@ import Navbar from "../Navbar/Navbar";
 import Profile from "../Profile-Pages/Profile";
 
 const Home = () => {
-  const [userUid, setUserUid] = useState("");
+  const [userUid, setUserUid] = useState('');
 
   const auth = getAuth(app);
   let navigate = useNavigate();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        console.log(user);
         var uid = user.uid;
         setUserUid(uid)
 

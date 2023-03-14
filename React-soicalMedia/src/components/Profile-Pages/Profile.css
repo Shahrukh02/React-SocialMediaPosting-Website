@@ -39,3 +39,10 @@ body {
 .user_info {
   color: #6b7280;
 }
+.upload_btn{
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  top: 165px;
+  z-index: 1;
+}

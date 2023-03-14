@@ -3,7 +3,9 @@ import { app } from "../../firebase-config";
 import PostCard from "../PostCard/PostCard";
 import Navbar from "../Navbar/Navbar";
 import Loader from "../Loader-full-screen/Loader";
+import { useNavigate } from "react-router-dom";
 import "./AllPosts.css";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   getFirestore,
   collection,
@@ -17,6 +19,19 @@ const AllPosts = () => {
   const [usersPost, setUsersPost] = useState([]);
 
   const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  let navigate = useNavigate();
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // ...
+      } else {
+        console.log("none");
+        navigate("/auth/login");
+      }
+    });
+  }, []);
 
   const getDocumnets = async () => {
     const q = query(collection(db, "posts"), orderBy("timeStamp", "desc"));
@@ -30,18 +45,20 @@ const AllPosts = () => {
   }, []);
 
   return (
-    <div className="all_posts_main_div">
+    <>
       <Navbar />
-      {usersPost.map((currElem, index) => {
-        return (
-          <div className="all_users_posts_main" key={index}>
-            <div className="all_users_posts">
-              <PostCard elements={currElem} />
+      <div className="all_posts_main_div">
+        {usersPost.map((currElem, index) => {
+          return (
+            <div className="all_users_posts_main" key={index}>
+              <div className="all_users_posts">
+                <PostCard elements={currElem} />
+              </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

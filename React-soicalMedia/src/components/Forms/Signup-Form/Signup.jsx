@@ -3,6 +3,7 @@ import "./Signup.css";
 import { app } from "../../../firebase-config";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Bars } from "react-loader-spinner";
+import Swal from 'sweetalert2'
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -27,9 +28,7 @@ const Signup = () => {
         console.log(uid);
         navigate("/auth/login");
         // ...
-      } else {
-        console.log("none");
-      }
+      } 
     });
   }, []);
 
@@ -66,11 +65,29 @@ const Signup = () => {
         setLoading(false);
         setFromData({ username: "", email: "", password: "" });
 
-        // ...
       })
       .catch((error) => {
+        if(error == 'FirebaseError: Firebase: Error (auth/email-already-in-use).'){
+          Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: 'Email already in use',
+          })
+        }else if (error == 'FirebaseError: Firebase: Password should be at least 6 characters (auth/weak-password).') {
+          Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: 'Password should be at least 6 characters',
+          })
+        }
+        else if (error == 'FirebaseError: Firebase: Error (auth/invalid-email).') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Invalid Email',
+          })
+        }
         console.log(error);
-        alert(error);
         setLoading(false);
         // ..
       });

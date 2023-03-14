@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { app } from "../../../firebase-config";
 import {NavLink , useNavigate} from 'react-router-dom'
+import Swal from 'sweetalert2'
 import { Bars } from "react-loader-spinner";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
@@ -21,9 +22,7 @@ const Login = () => {
         console.log(uid);
         navigate("/");
         // ...
-      } else {
-        console.log("none");
-      }
+      } 
     });
   },[])
 
@@ -45,15 +44,38 @@ const Login = () => {
       .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user.uid);
           setLoading(false)
           setFromData({ email: "", password: "" });
           navigate('/')
         // ...
       })
       .catch((error) => {
+        if (error == 'FirebaseError: Firebase: Error (auth/invalid-email).') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Invalid Email',
+          })
+        }else if (error == 'FirebaseError: Firebase: Error (auth/internal-error).') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Internal Error',
+          })
+        }else if (error == 'FirebaseError: Firebase: Error (auth/wrong-password).') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Wrong Password',
+          })
+        }else if (error == 'FirebaseError: Firebase: Error (auth/user-not-found).') {
+          Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: 'User Not Found',
+          })
+        }
         console.log(error);
-        alert(error)
         setLoading(false)
         // ..
       });
